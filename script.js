@@ -58,7 +58,11 @@ const enterScreen = document.getElementById("enterScreen");
 const music = document.getElementById("bgMusic");
 
 enterScreen.addEventListener("click", () => {
-    music.play();
-    enterScreen.remove();
+    music.play().then(() => {
+        enterScreen.remove();
+    }).catch(err => {
+        console.log("Audio failed:", err);
+    });
 });
+
 
