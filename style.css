@@ -67,14 +67,17 @@ p{
 #enterScreen {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.85);
+    background: rgba(0,0,0,0.9);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    font-size: 30px;
-    font-family: 'Zeyada', cursive;
     z-index: 9999;
-    cursor: pointer;
 }
+
+#enterScreen p {
+    color: white;
+    font-size: 32px;
+    font-family: 'Zeyada', cursive;
+}
+
 
