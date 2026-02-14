@@ -54,3 +54,11 @@ class Paper {
 document.querySelectorAll('.paper').forEach(paper => {
     new Paper().init(paper);
 });
+const enterScreen = document.getElementById("enterScreen");
+const music = document.getElementById("bgMusic");
+
+enterScreen.addEventListener("click", () => {
+    music.play();
+    enterScreen.remove();
+});
+
