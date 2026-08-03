@@ -11,13 +11,13 @@ class Paper {
 
     init(paper) {
 
-        paper.addEventListener('click', (e) => {
+        paper.addEventListener('mousedown', (e) => {
             e.preventDefault();
 
             this.holdingPaper = true;
             paper.style.zIndex = highestZ++;
 
-            const touch = e.click[0];
+            const touch = e.mousedown[0];
             this.prevX = touch.clientX;
             this.prevY = touch.clientY;
         }, { passive: false });
@@ -26,7 +26,7 @@ class Paper {
             if (!this.holdingPaper) return;
             e.preventDefault();
 
-            const touch = e.touches[0];
+            const touch = e.mousedown[0];
 
             const dx = touch.clientX - this.prevX;
             const dy = touch.clientY - this.prevY;
