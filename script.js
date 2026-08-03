@@ -11,18 +11,18 @@ class Paper {
 
     init(paper) {
 
-        paper.addEventListener('touchstart', (e) => {
+        paper.addEventListener('click', (e) => {
             e.preventDefault();
 
             this.holdingPaper = true;
             paper.style.zIndex = highestZ++;
 
-            const touch = e.touches[0];
+            const touch = e.click[0];
             this.prevX = touch.clientX;
             this.prevY = touch.clientY;
         }, { passive: false });
 
-        paper.addEventListener('touchmove', (e) => {
+        paper.addEventListener('mousemove', (e) => {
             if (!this.holdingPaper) return;
             e.preventDefault();
 
@@ -41,11 +41,11 @@ class Paper {
                 `translate(${this.currentPaperX}px, ${this.currentPaperY}px)`;
         }, { passive: false });
 
-        paper.addEventListener('touchend', () => {
+        paper.addEventListener('mouseleave', () => {
             this.holdingPaper = false;
         });
 
-        paper.addEventListener('touchcancel', () => {
+        paper.addEventListener('mouseout', () => {
             this.holdingPaper = false;
         });
     }
