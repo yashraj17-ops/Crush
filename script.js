@@ -10,7 +10,9 @@ class Paper {
     }
 
     init(paper) {
-        paper.addEventListener("mousedown", (e) => {
+        paper.style.position = "absolute";
+
+        paper.addEventListener("pointerdown", (e) => {
             e.preventDefault();
 
             this.holdingPaper = true;
@@ -18,9 +20,11 @@ class Paper {
 
             this.prevX = e.clientX;
             this.prevY = e.clientY;
+
+            paper.setPointerCapture(e.pointerId);
         });
 
-        document.addEventListener("mousemove", (e) => {
+        paper.addEventListener("pointermove", (e) => {
             if (!this.holdingPaper) return;
 
             const dx = e.clientX - this.prevX;
@@ -32,16 +36,21 @@ class Paper {
             this.prevX = e.clientX;
             this.prevY = e.clientY;
 
-            paper.style.transform =
-                `translate(${this.currentPaperX}px, ${this.currentPaperY}px)`;
+            paper.style.transform = `translate(${this.currentPaperX}px, ${this.currentPaperY}px)`;
         });
 
-        document.addEventListener("mouseup", () => {
+        paper.addEventListener("pointerup", () => {
+            this.holdingPaper = false;
+        });
+
+        paper.addEventListener("pointercancel", () => {
             this.holdingPaper = false;
         });
     }
 }
 
-document.querySelectorAll(".paper").forEach((paper) => {
-    new Paper().init(paper);
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".paper").forEach((paper) => {
+        new Paper().init(paper);
+    });
 });
