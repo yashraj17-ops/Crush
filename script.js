@@ -1,68 +1,55 @@
-let highestZ = 1;
+init(paper) {
 
-class Paper {
-    holdingPaper = false;
+    paper.addEventListener('mousedown', (e) => {
+        e.preventDefault();
 
-    prevX = 0;
-    prevY = 0;
+        this.holdingPaper = true;
+        paper.style.zIndex = highestZ++;
 
-    currentPaperX = 0;
-    currentPaperY = 0;
+        this.prevX = e.clientX;
+        this.prevY = e.clientY;
+    });
 
-    init(paper) {
+    paper.addEventListener('mousemove', (e) => {
+        if (!this.holdingPaper) return;
 
-        paper.addEventListener('mousedown', (e) => {
-            e.preventDefault();
+        e.preventDefault();
 
-            this.holdingPaper = true;
-            paper.style.zIndex = highestZ++;
+        const dx = e.clientX - this.prevX;
+        const dy = e.clientY - this.prevY;
 
-            const touch = e.mousedown[0];
-            this.prevX = touch.clientX;
-            this.prevY = touch.clientY;
-        }, { passive: false });
+        this.currentPaperX += dx;
+        this.currentPaperY += dy;
 
-        paper.addEventListener('mousemove', (e) => {
-            if (!this.holdingPaper) return;
-            e.preventDefault();
+        this.prevX = e.clientX;
+        this.prevY = e.clientY;
 
-            const touch = e.mousedown[0];
+        paper.style.transform =
+            `translate(${this.currentPaperX}px, ${this.currentPaperY}px)`;
+    });
 
-            const dx = touch.clientX - this.prevX;
-            const dy = touch.clientY - this.prevY;
+    paper.addEventListener('mouseup', () => {
+        this.holdingPaper = false;
+    });
 
-            this.currentPaperX += dx;
-            this.currentPaperY += dy;
-
-            this.prevX = touch.clientX;
-            this.prevY = touch.clientY;
-
-            paper.style.transform =
-                `translate(${this.currentPaperX}px, ${this.currentPaperY}px)`;
-        }, { passive: false });
-
-        paper.addEventListener('mouseleave', () => {
-            this.holdingPaper = false;
-        });
-
-        paper.addEventListener('mouseout', () => {
-            this.holdingPaper = false;
-        });
-    }
+    paper.addEventListener('mouseleave', () => {
+        this.holdingPaper = false;
+    });
 }
 
 document.querySelectorAll('.paper').forEach(paper => {
     new Paper().init(paper);
 });
+
 const enterScreen = document.getElementById("enterScreen");
 const music = document.getElementById("bgMusic");
 
 enterScreen.addEventListener("click", () => {
-    music.play().then(() => {
-        enterScreen.remove();
-    }).catch(err => {
-        console.log("Audio failed:", err);
-    });
+    music.play()
+        .then(() => {
+            enterScreen.remove();
+        })
+        .catch(err => {
+            console.log("Audio failed:", err);
+        });
 });
-
-
