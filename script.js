@@ -1,4 +1,4 @@
-<audio id="bgMusic" src="The_Chainsmokers_-_Closer_(Lyrics)_ft._Halsey_128k.mp3" loop></audio>
+<audio id="bgMusic" src="./The_Chainsmokers_-_Closer_(Lyrics)_ft._Halsey_128k.mp3" loop></audio>
 
 <script>
 let highestZ = 1;
