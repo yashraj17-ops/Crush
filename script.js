@@ -1,7 +1,7 @@
 let highestZ = 1;
 
 // ===============================
-// BACKGROUND MUSIC
+// BACKGROUND MUSI
 // ===============================
 
 const bgMusic = new Audio("./music.mp3");
